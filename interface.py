@@ -1,3 +1,4 @@
+# --------------- CONFIGURAÇÕES INICIAIS ---------------
 # importando bibliotecas:
 import pygame
 from sys import exit
@@ -6,17 +7,17 @@ from sys import exit
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Kikinho, o gênio da tabela periódica")
-icon = pygame.image.load("imagens\placeholder.bmp")
+icon = pygame.image.load("imagens\icon.png")
 pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
 fonte = pygame.font.Font("fontes\PixeloidSans.ttf", 30)
 
 # definindo variáveis e importando superfícies (imagens):
-fundo_sup = pygame.image.load(r"imagens\bg_placeholder.png")
-kikinho_sup = pygame.image.load("imagens\placeholder.png")
+fundo_sup = pygame.image.load(r"imagens\background.png")
+kikinho_sup = pygame.image.load("imagens\kikinho.png")
+speechBubble_sup = pygame.image.load("imagens\speechBubble.png")
 
-
-# main loop:
+# --------------- MAIN LOOP ---------------
 while True:
     # mais configurações básicas:
     for event in pygame.event.get():
@@ -24,10 +25,13 @@ while True:
             pygame.quit()
             exit()
 
+    # definindo variáveis temporárias:
+    texto_sup = fonte.render("ui ui ui elemento químico", False, "Black" )
+
     # adicionando superfícies (imagens):
     screen.blit(fundo_sup, (0,0))
-    screen.blit(kikinho_sup, (300,75))
-    texto_sup = fonte.render("ui ui ui elemento químico", False, "Black" )
+    screen.blit(kikinho_sup, (25,25))
+    screen.blit(speechBubble_sup, (301, 25))
     screen.blit(texto_sup, (100,400))
 
     pygame.display.update()
@@ -45,14 +49,15 @@ while True:
         o | atualizar a janela a cada pergunta
         o | mudar o texto da pergunta na janela
     o | adição de imagens:
-        o | ícone
-        o | kikinho
+        x | ícone
+        x | kikinho
         o | botões
-        o | fundo
-        o | balão de texto
+        x | fundo
+        x | balão de texto
     o | se der tempo:
         o | expressões faciais
         o | música de fundo
         o | efeitos sonoros
         o | fontes diferentes
+        o | letra a letra
 '''
