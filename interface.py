@@ -11,6 +11,7 @@ icon = pygame.image.load("imagens\icon.png")
 pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
 fonte = pygame.font.Font("fontes\PixeloidSans.ttf", 26)
+indexFrase = 0
 
 # definindo variáveis e importando superfícies, retângulos e classes de sprites:
 fundo_surf = pygame.image.load(r"imagens\background.png")
@@ -25,24 +26,65 @@ class Button(pygame.sprite.Sprite):
         super().__init__()
         
         if resposta == "SIM":
-            self.fotinha = "imagens\SIM.png"
+            SIM1 = pygame.image.load("imagens\SIM.png")
+            SIM2 = pygame.image.load("imagens\SIM2.png")
+            self.frames = [SIM1, SIM2]
             self.ponto = (455,269)
+            self.valor = "s"
 
         elif resposta == "NÃO_SEI":
-            self.fotinha = r"imagens\NÃO_SEI.png"
+            NÃO_SEI1 = pygame.image.load(r"imagens\NÃO_SEI.png")
+            NÃO_SEI2 = pygame.image.load(r"imagens\NÃO_SEI2.png")
+            self.frames = [NÃO_SEI1, NÃO_SEI2]
             self.ponto = (455,371)
+            self.valor = ""
 
         elif resposta == "NÃO":
-            self.fotinha = r"imagens\NÃO.png"
+            NÃO1 = pygame.image.load(r"imagens\NÃO.png")
+            NÃO2 = pygame.image.load(r"imagens\NÃO2.png")
+            self.frames = [NÃO1,NÃO2]
             self.ponto = (455,473)
+            self.valor = "n"
 
-        self.image = pygame.image.load(self.fotinha)
+        elif resposta == "CONTINUAR":
+            CONTINUAR1 = pygame.image.load("imagens\CONTINUAR.png")
+            CONTINUAR2 = pygame.image.load("imagens\CONTINUAR2.png")
+            self.frames = [CONTINUAR1, CONTINUAR2]
+            self.ponto = (455,371)
+            self.valor = "vai"
+
+        self.animation_index = 0
+        self.apertando = False
+        self.image = self.frames[int(self.animation_index)]
         self.rect = self.image.get_rect(topleft = self.ponto)
 
+    def button_input(self):
+        clique = pygame.mouse.get_pressed()
+        pos = pygame.mouse.get_pos()
+        if clique[0] and self.rect.collidepoint(pos[0], pos[1]):
+            self.apertando = True
+            return self.valor
+        else:
+            self.apertando = False
+
+    def animation(self):
+        if self.apertando == True:
+            self.animation_index = 1
+        else:
+            self.animation_index = 0
+        self.image = self.frames[int(self.animation_index)]
+
+    def update(self):
+        self.button_input()
+        self.animation()
+            
 ButtonGroup = pygame.sprite.Group()
 ButtonGroup.add(Button("SIM"))
 ButtonGroup.add(Button("NÃO_SEI"))
 ButtonGroup.add(Button("NÃO"))
+
+CONTINUAR = pygame.sprite.GroupSingle()
+CONTINUAR.add(Button("CONTINUAR"))
 
 # --------------- DEFININDO FUNÇÕES ---------------
 # função para o texto: (https://www.pygame.org/wiki/TextWrap)
@@ -84,6 +126,36 @@ def drawText(text, color="Black", surface=screen, rect=text_rect, font=fonte, aa
 
     return text
 
+# --------------- LOOP INICIAL ---------------
+while True:
+    # mais configurações básicas:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit
+    
+    # definindo as frases de apresentação:
+    fraseInicial = ["Olá, sou o Kikinho, gênio da tabela periódica da Ilum Escola de Ciência.", "Pense em um elemento da tabela periódica, e eu vou tentar adivinhá-lo através de perguntas de SIM ou NÃO!"]
+
+    # exibindo superfícies (imagens) e sprites:
+    screen.blit(fundo_surf, (0,0))
+    screen.blit(kikinho_surf, (25,25))
+    screen.blit(speechBubble_surf, (301, 25))
+
+    drawText(fraseInicial[indexFrase])
+
+    CONTINUAR.draw(screen)
+    CONTINUAR.update()
+
+    if Button("CONTINUAR").button_input() == "vai":
+        indexFrase += 1
+
+    if indexFrase >= 2:
+        break
+
+    pygame.display.update()
+    clock.tick(15) # fps total
+
 # --------------- MAIN LOOP ---------------
 while True:
     # mais configurações básicas:
@@ -95,21 +167,19 @@ while True:
     # definindo variáveis temporárias:
     perguntaAtual = "O seu elemento faz ligação covalente?"
    
-    # exibindo superfícies (imagens):
+    # exibindo superfícies (imagens) e sprites:
     screen.blit(fundo_surf, (0,0))
     screen.blit(kikinho_surf, (25,25))
     screen.blit(speechBubble_surf, (301, 25))
     screen.blit(caixa_surf, (435, 249))
-
-    ButtonGroup.draw(screen)
-
+    
     drawText(perguntaAtual)
 
-    # exibindo sprites:
-
+    ButtonGroup.draw(screen)
+    ButtonGroup.update()
 
     pygame.display.update()
-    clock.tick(60) # fps total
+    clock.tick(15) # fps total
 
 ''' --------------- CHECKLIST: ---------------
     o | código base:
@@ -118,15 +188,16 @@ while True:
         x | adicionar placeholders
         x | adicionar texto
         x | adicionar botões
-        o | fazer os botões funcionarem ;-;
+        x | fazer os botões funcionarem
+        o | limitar eventos para botões apertarem só uma vez :,)
     o | juntar com o algoritmo do kikinho:
         o | ligar os botões à variável de resposta
         o | atualizar a janela a cada pergunta
         o | mudar o texto da pergunta na janela
-    o | adição de imagens:
+    x | adição de imagens:
         x | ícone
         x | kikinho
-        o | botões
+        x | botões
         x | fundo
         x | balão de texto
     o | se der tempo:
@@ -135,9 +206,7 @@ while True:
         o | efeitos sonoros
         o | fontes/cores diferentes
         o | texto que aparece letra a letra
-        o | botão que muda de cor enquanto pressionado
-        o | loop inicial de apresentação :)
-             fraseInicial = "Olá, sou o Kikinho, gênio da tabela periódica da Ilum Escola de Ciência." 
-             fraseInicial = "Pense em um elemento da tabela periódica, e eu vou tentar adivinhá-lo através de perguntas de SIM ou NÃO!"
+        x | botão que muda de cor enquanto pressionado
+        x | loop inicial de apresentação :)
 
 '''

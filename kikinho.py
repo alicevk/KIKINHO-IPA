@@ -56,7 +56,6 @@ perguntas = { # Um dicionário com as perguntas gerais e os seus elementos corre
 perguntasEspecíficas = { # Um dicionário com as perguntas específicas e seu único elemento correspondente
     "O modelo de Bohr é válido para o seu elemento?":{1},
     "O seu elemento é o predominante na composição do Sol?":{2},
-    "O seu elemento é utilizado na composição de pilhas e baterias?":{3},
     "É famoso por ser utilizado na composição de creme dental?":{9},
     "O seu elemento é encontrado na clorofila?":{12},
     "O seu elemento é utilizado na limpeza de piscinas?":{17},
@@ -127,3 +126,36 @@ for número in range(len(resultadoTemporário)): # Por um número N de vezes que
         break # Sai do loop for, para parar de chutar outros elementos
     elif número == len(resultadoTemporário)-1 and respostaFinal == 'n': # Senão, se for o último elemento da lista e a resposta final for não:
         print("Baixo astral, cara. Não consegui adivinhar o seu elemento. Você me venceu. :'(") # :(
+
+
+'''
+PARA FAZER PERGUNTA ESPECÍFICA:
+
+    Oxygen (O)
+    Carbon (C)
+    Hydrogen (H)
+    Nitrogen (N)
+    Sulfur (S)
+    Iron (Fe)
+    Copper (Cu)
+    Gold (Au)
+    Silver (Ag)
+    Mercury (Hg)
+    Zinc (Zn)
+    Helium (He)
+    Phosphorus (P)
+    Silicon (Si)
+    Sodium (Na)
+    Lithium (li)
+    Calcium (Ca)
+    Platinum (Pt)
+    Nickel (Ni)
+    Chlorine (Cl)
+    Argon (Ar)
+    Uranium (U)
+    Fluorine (F)
+    Potassium (K)
+    Neon (Ne)
+    Arsenic (As)
+    Chromium (Cr)
+'''
