@@ -30,8 +30,10 @@ perguntasPossíveis = { # Um conjunto com todas as perguntas não específicas p
 
 perguntas = { # Um dicionário com as perguntas gerais e os seus elementos correspondentes
     "O seu elemento é um metal de transição?": {21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 39, 40, 41, 42, 43, 44, 45, 46, 48, 57, 72, 73, 74, 75, 76, 77, 78, 80, 89, 104, 105, 106, 107, 108, 109, 110, 112},
-    "O seu elemento faz ligação covalente?":{1, 2, 5, 6, 7, 8, 9, 10, 13, 14, 15, 16, 17, 18, 31, 32, 33, 34, 35, 36, 47, 49, 50, 51, 52, 53, 54, 79, 81, 82, 83, 84, 85, 86, 111, 113, 114, 115, 116, 117, 118},
-    "O seu elemento tem 8 elétrons na camada de valência?":{36, 10, 18, 54, 86, 118},
+    # eletronegatividade
+    # alcalino, lantanídeo
+    # se tem isótopo
+    "O seu elemento se classifica como gás nobre?":{36, 10, 18, 54, 86, 118},
     "O seu elemento é da família do Boro?":{5, 13, 81, 49, 113, 31},
     "O seu elemento é da família do Carbono?":{32, 6, 14, 50, 82, 114},
     "O seu elemento é da família do Nitrogênio?":{33, 83, 51, 115, 7, 15},
@@ -41,7 +43,7 @@ perguntas = { # Um dicionário com as perguntas gerais e os seus elementos corre
     "Em condições normais de pressão e temperatura, seu elemento é um gás?": {1, 2, 36, 7, 8, 9, 10, 17, 18, 54, 86}, 
     "Em condições normais de pressão e temperatura, seu elemento é um líquido?":{80, 35}, 
     "Em condições normais de pressão e temperatura, seu elemento é um sólido?":{3, 4, 5, 6, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 55, 56, 57, 58, 59,60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 81, 82, 83, 84, 85, 88, 89, 90, 91, 92, 93, 94, 95, 96, 98, 100, 101, 102},
-    "O seu elemento é radioativo?":{43, 61, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118}, 
+    # "O seu elemento é (ou possui algum isótopo) radioativo?":{43, 61, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118}, 
     "O seu elemento é um bom condutor térmico?(acima de 8 W/mK)":{3, 4, 5, 11, 12, 13, 14, 19, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31, 32, 37, 40, 41, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 55, 57, 58, 59, 61, 63, 65, 66, 72, 73, 74, 75, 77, 78, 79, 80, 81, 82, 92}, 
     "O seu elemento é sintético?":{95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118}, 
     "O seu elemento é utilizado na fabricação de smartphones?":{19, 31, 33, 42, 47, 50, 79},
@@ -59,7 +61,7 @@ perguntasEspecíficas = { # Um dicionário com as perguntas específicas e seu �
     "É famoso por ser utilizado na composição de creme dental?":{9},
     "O seu elemento é encontrado na clorofila?":{12},
     "O seu elemento é utilizado na limpeza de piscinas?":{17},
-    "O seu elemento pode ajudar a evitar pedra nos rins?":{19},
+    "O seu elemento está presente na banana":{19},
     "O seu elemento é essencial para a manutenção dos ossos?":{20},
     "O seu elemento auxilia no trasporte do Oxigênio pelo corpos animais?":{26},
     "O seu elemento é utilizado para fazer fios elétricos?":{29},

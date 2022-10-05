@@ -2,6 +2,8 @@
 # importando bibliotecas:
 import pygame
 from sys import exit
+import time
+import kikinho
 
 # definindo configurações iniciais:
 pygame.init()
@@ -61,7 +63,8 @@ class Button(pygame.sprite.Sprite):
     def button_input(self):
         clique = pygame.mouse.get_pressed()
         pos = pygame.mouse.get_pos()
-        if clique[0] and self.rect.collidepoint(pos[0], pos[1]):
+        if clique[0] and self.rect.collidepoint(pos[0], pos[1]) and not self.apertando:
+            time.sleep(0.1)
             self.apertando = True
             return self.valor
         else:
@@ -189,7 +192,8 @@ while True:
         x | adicionar texto
         x | adicionar botões
         x | fazer os botões funcionarem
-        o | limitar eventos para botões apertarem só uma vez :,)
+        / | limitar eventos para botões apertarem só uma vez :,)
+        o | generator
     o | juntar com o algoritmo do kikinho:
         o | ligar os botões à variável de resposta
         o | atualizar a janela a cada pergunta
