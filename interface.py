@@ -16,7 +16,7 @@ pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
 fonte = pygame.font.Font("fontes\PixeloidSans.ttf", 26)
 indexFrase = 0
-perguntaAtual = "O seu elemento faz ligação covalente?" # Define a primeira pergunta como a pergunta atual
+perguntaAtual = "O seu elemento é um ametal?" # Define a primeira pergunta como a pergunta atual
 listaExcluída = set()
 answer = ""
 pausado = False
@@ -95,6 +95,10 @@ ButtonGroup.add(Button("NÃO"))
 
 CONTINUAR = pygame.sprite.GroupSingle()
 CONTINUAR.add(Button("CONTINUAR"))
+
+ButtonGroupFinal = pygame.sprite.Group()
+ButtonGroupFinal.add(Button("SIM"))
+ButtonGroupFinal.add(Button("NÃO"))
 
 # --------------- DEFININDO FUNÇÕES ---------------
 # função para o texto: (https://www.pygame.org/wiki/TextWrap)
@@ -191,6 +195,9 @@ while kikinho.perguntasPossíveis != set(): # Enquanto ainda houver perguntas po
         kikinho.elementosPossíveis = kikinho.elementosPossíveis - kikinho.perguntas[perguntaAtual] # Retira os elementos correspondentes à pergunta da lista de elementos possíveis
         pausado = False
 
+    if answer == "nsei":
+        pausado = False
+
     if not pausado:
     # partindo para a próxima pergunta:
         kikinho.perguntasPossíveis.remove(perguntaAtual) # Remove a pergunta atual da lista de perguntas possíveis, impedindo que as perguntas se repitam
@@ -231,22 +238,49 @@ while kikinho.perguntasPossíveis != set(): # Enquanto ainda houver perguntas po
     pygame.display.update()
     clock.tick(15) # fps total
 
+if len(kikinho.elementosPossíveis) == 0:
+    Fala = "Baixo astral, cara. Não consegui adivinhar o seu elemento. Você me venceu. :'(" # :(
+
 resultadoTemporário = list(kikinho.elementosPossíveis) # Cria uma lista para o resultado temporário
+answer = ""
+elementoAdivinhado = resultadoTemporário[0] # Define o primeiro item da lista como aquele a ser adivinhado
+finished = False
 
 # --------------- LOOP FINAL ---------------
-for número in range(len(resultadoTemporário)): # Por um número N de vezes que é igual ao tamanho da lista temporária (número de elementos possíveis):
-    
-    elementoAdivinhado = resultadoTemporário[número] # Define o valor com index de número N da lista como o elemento a ser adivinhado
-    
-    perguntaFinal = "O seu elemento é o " + element(resultadoTemporário[número]).name + "?"
-    drawText(perguntaFinal)
-    # Note acima o uso da biblioteca mendeleev para obtenção do nome do elemento a partir de seu número atômico! :)
-    
-    if answer == 's': # Se a resposta final for sim:
-        drawText("Isso! Consegui acertar! De primeira hein? ;)") # :D
-        break # Sai do loop for, para parar de chutar outros elementos
-    elif número == len(resultadoTemporário)-1 and answer == 'n': # Senão, se for o último elemento da lista e a resposta final for não:
-        drawText("Baixo astral, cara. Não consegui adivinhar o seu elemento. Você me venceu. :'(") # :(
+while True:
+    # mais configurações básicas:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+
+    if not finished:
+        if answer == "":
+            Fala = "O seu elemento é o " + element(elementoAdivinhado).name + "?"
+            # Note acima o uso da biblioteca mendeleev para obtenção do nome do elemento a partir de seu número atômico! :)
+        if answer == "s": # Se a resposta final for sim:
+            Fala = "Isso! Consegui acertar! De primeira hein? ;)" # :D
+            finished = True
+        if len(resultadoTemporário) == 1 and answer == 'n': # Se a lista de elementos estiver vazia e a resposta final for não:
+            Fala = "Baixo astral, cara. Não consegui adivinhar o seu elemento. Você me venceu. :'(" # :(
+            finished = True
+        if len(resultadoTemporário) != 1 and answer == "n":
+            resultadoTemporário.remove(elementoAdivinhado)
+            elementoAdivinhado = resultadoTemporário[0]
+            answer = ""
+
+    screen.blit(fundo_surf, (0,0))
+    screen.blit(kikinho_surf, (25,25))
+    screen.blit(speechBubble_surf, (301, 25))
+    screen.blit(caixa_surf, (435, 249))
+
+    drawText(Fala)
+
+    ButtonGroupFinal.draw(screen)
+    ButtonGroupFinal.update()
+
+    pygame.display.update()
+    clock.tick(15)
 
 ''' --------------- CHECKLIST: ---------------
     x | código base:
@@ -257,17 +291,19 @@ for número in range(len(resultadoTemporário)): # Por um número N de vezes que
         x | adicionar botões
         x | fazer os botões funcionarem
         x | limitar eventos para botões apertarem só uma vez :,)
-    O | juntar com o algoritmo do kikinho:
+    x | juntar com o algoritmo do kikinho:
         x | importar as variáveis do kikinho
         x | passar o código do kikinho pra cá
         x | ligar os botões à variável de resposta
         x | atualizar a janela a cada pergunta
         x | mudar o texto da pergunta na janela
-        o | testar se funciona depois de atualizar o kikinho
-    o | atualizar o algoritmo do kikinho:
+        x | testar se funciona depois de atualizar o kikinho
+        x | arrumar frase final
+        x | implementar botão de NÃO SEI
+    x | atualizar o algoritmo do kikinho:
         x | tirar as perguntas questionáveis
-        o | colocar novas perguntas gerais
-        o | colocar novas perguntas específicas
+        x | colocar novas perguntas gerais
+        x | colocar novas perguntas específicas
     x | adição de imagens:
         x | ícone
         x | kikinho
@@ -282,5 +318,7 @@ for número in range(len(resultadoTemporário)): # Por um número N de vezes que
         o | texto que aparece letra a letra
         x | botão que muda de cor enquanto pressionado
         x | loop inicial de apresentação :)
+
+KIKINHO OFICIALMENTE TERMINADO!!!!
 
 '''

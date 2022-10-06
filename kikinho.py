@@ -73,6 +73,7 @@ perguntas = { # Um dicionário com as perguntas gerais e os seus elementos corre
 perguntasEspecíficas = { # Um dicionário com as perguntas específicas e seu único elemento correspondente
     "O modelo de Bohr é válido para o seu elemento?":{1},
     "O seu elemento é famoso por ser utilizado para inflar balões?":{2},
+    "Existe uma música da banda Nirvana com o nome do seu elemento?":{3},
     "O seu elemento compõe o grafite, o carvão, o diamante e compostos orgânicos?":{6},
     "O seu elemento é o mais abundante na atmosfera?":{7},
     "O seu elemento é um dos produtos da fotossíntese? ":{8},
