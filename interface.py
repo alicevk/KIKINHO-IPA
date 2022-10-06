@@ -265,7 +265,7 @@ for número in range(len(resultadoTemporário)): # Por um número N de vezes que
         x | mudar o texto da pergunta na janela
         o | testar se funciona depois de atualizar o kikinho
     o | atualizar o algoritmo do kikinho:
-        o | tirar as perguntas questionáveis
+        x | tirar as perguntas questionáveis
         o | colocar novas perguntas gerais
         o | colocar novas perguntas específicas
     x | adição de imagens:
