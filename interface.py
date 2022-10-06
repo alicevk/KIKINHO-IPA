@@ -4,6 +4,8 @@ import pygame
 from sys import exit
 import time
 import kikinho
+import random
+from mendeleev import element
 
 # definindo configurações iniciais:
 pygame.init()
@@ -14,6 +16,10 @@ pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
 fonte = pygame.font.Font("fontes\PixeloidSans.ttf", 26)
 indexFrase = 0
+perguntaAtual = "O seu elemento faz ligação covalente?" # Define a primeira pergunta como a pergunta atual
+listaExcluída = set()
+answer = ""
+pausado = False
 
 # definindo variáveis e importando superfícies, retângulos e classes de sprites:
 fundo_surf = pygame.image.load(r"imagens\background.png")
@@ -39,7 +45,7 @@ class Button(pygame.sprite.Sprite):
             NÃO_SEI2 = pygame.image.load(r"imagens\NÃO_SEI2.png")
             self.frames = [NÃO_SEI1, NÃO_SEI2]
             self.ponto = (455,371)
-            self.valor = ""
+            self.valor = "nsei"
 
         elif resposta == "NÃO":
             NÃO1 = pygame.image.load(r"imagens\NÃO.png")
@@ -66,7 +72,8 @@ class Button(pygame.sprite.Sprite):
         if clique[0] and self.rect.collidepoint(pos[0], pos[1]) and not self.apertando:
             time.sleep(0.1)
             self.apertando = True
-            return self.valor
+            global answer
+            answer = self.valor
         else:
             self.apertando = False
 
@@ -150,7 +157,8 @@ while True:
     CONTINUAR.draw(screen)
     CONTINUAR.update()
 
-    if Button("CONTINUAR").button_input() == "vai":
+    if answer == "vai":
+        answer = ""
         indexFrase += 1
 
     if indexFrase >= 2:
@@ -160,16 +168,55 @@ while True:
     clock.tick(15) # fps total
 
 # --------------- MAIN LOOP ---------------
-while True:
+while kikinho.perguntasPossíveis != set(): # Enquanto ainda houver perguntas possíveis:
+
     # mais configurações básicas:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
 
-    # definindo variáveis temporárias:
-    perguntaAtual = "O seu elemento faz ligação covalente?"
-   
+    # checando a resposta:
+    if answer == "":
+        pausado = True
+    if answer == "s": # Se a resposta for sim:
+        for elemento in kikinho.elementosPossíveis: # Para cada elemento possível,
+            if elemento not in kikinho.perguntas[perguntaAtual]: # Se este elemento não corresponde à pergunta:
+                listaExcluída.add(elemento) # Adiciona o elemento à lista para exclusão
+        pausado = False
+    
+    kikinho.elementosPossíveis = kikinho.elementosPossíveis - listaExcluída # Retira a lista de exclusão da lista de elementos possíveis
+
+    if answer == "n": # Se a resposta for não:
+        kikinho.elementosPossíveis = kikinho.elementosPossíveis - kikinho.perguntas[perguntaAtual] # Retira os elementos correspondentes à pergunta da lista de elementos possíveis
+        pausado = False
+
+    if not pausado:
+    # partindo para a próxima pergunta:
+        kikinho.perguntasPossíveis.remove(perguntaAtual) # Remove a pergunta atual da lista de perguntas possíveis, impedindo que as perguntas se repitam
+
+        for chave in kikinho.perguntas: # Para cada pergunta no dicionário perguntas:
+            if kikinho.elementosPossíveis.intersection(kikinho.perguntas[chave]) == set() and chave in kikinho.perguntasPossíveis: # Se não houver nenhuma pergunta em comum com elementos possíveis:
+                kikinho.perguntasPossíveis.remove(chave) # Remove pergunta de perguntas possíveis
+        
+        if kikinho.perguntasPossíveis == set(): # Se não houver mais perguntas possíveis:
+            for chave, valor in kikinho.perguntasEspecíficas.items(): # Para cada par chave-valor no dicionário de perguntas específicas:
+                if list(valor)[0] in kikinho.elementosPossíveis: # Se o elemento correspondente (valor) estiver entre os elementos possíveis:
+                    kikinho.perguntas[chave] = valor # Adiciona o par chave-valor (pergunta e elemento) ao dicionário de perguntas normais
+                    kikinho.perguntasPossíveis.add(chave) # Adiciona a pergunta (chave) à lista de perguntas possíveis
+
+        listaTemporária = list(kikinho.perguntasPossíveis) # Uma lista temporária que é uma cópia do conjunto de perguntas possíveis
+        
+        if listaTemporária != [] and len(kikinho.elementosPossíveis) >= 2: # Se houver alguma pergunta na lista temporária e ainda houver algum elemento possível:
+            perguntaAtual = random.choice(listaTemporária) # Define uma pergunta aleatória das restantes como pergunta atual
+    
+        if len(kikinho.elementosPossíveis) <= 2: # Se houver apenas 2 ou menos elementos:
+            break # Sai do loop while, para adivinhar seu elemento
+
+        # resetando variáveis temporárias:
+        listaExcluída = set() # Limpa a lista de elementos a serem excluídos a cada iteração (usada posteriormente)
+        answer = "" # Limpa a variável que contém a resposta para a pergunta atual
+
     # exibindo superfícies (imagens) e sprites:
     screen.blit(fundo_surf, (0,0))
     screen.blit(kikinho_surf, (25,25))
@@ -180,24 +227,47 @@ while True:
 
     ButtonGroup.draw(screen)
     ButtonGroup.update()
-
+    
     pygame.display.update()
     clock.tick(15) # fps total
 
+resultadoTemporário = list(kikinho.elementosPossíveis) # Cria uma lista para o resultado temporário
+
+# --------------- LOOP FINAL ---------------
+for número in range(len(resultadoTemporário)): # Por um número N de vezes que é igual ao tamanho da lista temporária (número de elementos possíveis):
+    
+    elementoAdivinhado = resultadoTemporário[número] # Define o valor com index de número N da lista como o elemento a ser adivinhado
+    
+    perguntaFinal = "O seu elemento é o " + element(resultadoTemporário[número]).name + "?"
+    drawText(perguntaFinal)
+    # Note acima o uso da biblioteca mendeleev para obtenção do nome do elemento a partir de seu número atômico! :)
+    
+    if answer == 's': # Se a resposta final for sim:
+        drawText("Isso! Consegui acertar! De primeira hein? ;)") # :D
+        break # Sai do loop for, para parar de chutar outros elementos
+    elif número == len(resultadoTemporário)-1 and answer == 'n': # Senão, se for o último elemento da lista e a resposta final for não:
+        drawText("Baixo astral, cara. Não consegui adivinhar o seu elemento. Você me venceu. :'(") # :(
+
 ''' --------------- CHECKLIST: ---------------
-    o | código base:
+    x | código base:
         x | criar uma janela
         x | terminar as configurações iniciais
         x | adicionar placeholders
         x | adicionar texto
         x | adicionar botões
         x | fazer os botões funcionarem
-        / | limitar eventos para botões apertarem só uma vez :,)
-        o | generator
-    o | juntar com o algoritmo do kikinho:
-        o | ligar os botões à variável de resposta
-        o | atualizar a janela a cada pergunta
-        o | mudar o texto da pergunta na janela
+        x | limitar eventos para botões apertarem só uma vez :,)
+    O | juntar com o algoritmo do kikinho:
+        x | importar as variáveis do kikinho
+        x | passar o código do kikinho pra cá
+        x | ligar os botões à variável de resposta
+        x | atualizar a janela a cada pergunta
+        x | mudar o texto da pergunta na janela
+        o | testar se funciona depois de atualizar o kikinho
+    o | atualizar o algoritmo do kikinho:
+        o | tirar as perguntas questionáveis
+        o | colocar novas perguntas gerais
+        o | colocar novas perguntas específicas
     x | adição de imagens:
         x | ícone
         x | kikinho
