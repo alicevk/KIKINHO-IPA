@@ -34,6 +34,9 @@ perguntasPossíveis = { # Um conjunto com todas as perguntas não específicas p
     "O seu elemento é famoso por ser um dos três tipos de medalhas olímpicas?",
     "O seu elemento é classificado como transurânico?",
     "O seu elemento é um líquido a 5000°C?",
+    "O seu elemento é um metalóide?",
+    "O símbolo do seu elemento possui apenas uma letra?",
+    "O seu elemento possui massa maior que 100 u?",
 }
 
 perguntas = { # Um dicionário com as perguntas gerais e os seus elementos correspondentes
@@ -67,7 +70,9 @@ perguntas = { # Um dicionário com as perguntas gerais e os seus elementos corre
     "O seu elemento é famoso por ser um dos três tipos de medalhas olímpicas?":{47,79},
     "O seu elemento é classificado como transurânico?": {93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118},
     "O seu elemento é um líquido a 5000°C?":{73,74,75,76},
-
+    "O seu elemento é um metalóide?":{5,14,32,33,51,52,85},
+    "O símbolo do seu elemento possui apenas uma letra?":{1,5,6,7,8,9,15,16,19,23,39,53,74,92},
+    "O seu elemento possui massa maior que 100 u?":{44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118},
 }
 
 perguntasEspecíficas = { # Um dicionário com as perguntas específicas e seu único elemento correspondente
@@ -91,7 +96,6 @@ perguntasEspecíficas = { # Um dicionário com as perguntas específicas e seu �
     "O seu elemento é famoso por ser usado como arma em histórias de vampiros e lobisomens?":{47},
     "O seu elemento é utilizado para desinfetar machucados?":{53},
     "O seu elemento possui um isótopo radioativo responsável pelo acidente em Goiânia de 1987?":{55},
-    "O nome do seu elemento se parece com o nome de um continente?":{63},
     "O nome do seu elemento se parece com o nome de um famoso detetive fictício?": {67},
     "O seu elemento era usado em termômetros?":{80},
 }

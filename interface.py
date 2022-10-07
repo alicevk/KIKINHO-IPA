@@ -318,6 +318,7 @@ while True:
         o | texto que aparece letra a letra
         x | botão que muda de cor enquanto pressionado
         x | loop inicial de apresentação :)
+        o | loop final para reiniciar
 
 KIKINHO OFICIALMENTE TERMINADO!!!!
 
