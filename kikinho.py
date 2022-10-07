@@ -93,6 +93,7 @@ perguntasEspecíficas = { # Um dicionário com as perguntas específicas e seu �
     "Existe uma música de David Guetta e Sia com o nome do seu elemento?":{22},
     "O seu elemento auxilia no trasporte do Oxigênio pelo corpos animais?":{26},
     "O seu elemento é utilizado para fazer fios elétricos?":{29},
+    "O seu elemento já foi conhecido como 'Rei dos Venenos'?":{33},
     "O nome do seu elemento se parece com o nome do planeta do Super-Homem?":{36},
     "O seu elemento é famoso por ser usado como arma em histórias de vampiros e lobisomens?":{47},
     "O seu elemento é utilizado para desinfetar machucados?":{53},
