@@ -25,7 +25,6 @@ pausado = False
 fundo_surf = pygame.image.load(r"imagens\background.png")
 kikinho_surf = pygame.image.load("imagens\kikinho.png")
 speechBubble_surf = pygame.image.load("imagens\speechBubble.png")
-caixa_surf = pygame.image.load("imagens\caixa.png")
 
 text_rect = pygame.Rect(355,45,400,159)
 
@@ -40,6 +39,13 @@ class Button(pygame.sprite.Sprite):
             self.ponto = (455,269)
             self.valor = "s"
 
+        elif resposta == "SIM2":
+            SIM1 = pygame.image.load("imagens\SIM.png")
+            SIM2 = pygame.image.load("imagens\SIM2.png")
+            self.frames = [SIM1, SIM2]
+            self.ponto = (455,320)
+            self.valor = "s"
+
         elif resposta == "NÃO_SEI":
             NÃO_SEI1 = pygame.image.load(r"imagens\NÃO_SEI.png")
             NÃO_SEI2 = pygame.image.load(r"imagens\NÃO_SEI2.png")
@@ -52,6 +58,13 @@ class Button(pygame.sprite.Sprite):
             NÃO2 = pygame.image.load(r"imagens\NÃO2.png")
             self.frames = [NÃO1,NÃO2]
             self.ponto = (455,473)
+            self.valor = "n"
+
+        elif resposta == "NÃO2":
+            NÃO1 = pygame.image.load(r"imagens\NÃO.png")
+            NÃO2 = pygame.image.load(r"imagens\NÃO2.png")
+            self.frames = [NÃO1,NÃO2]
+            self.ponto = (455,422)
             self.valor = "n"
 
         elif resposta == "CONTINUAR":
@@ -97,8 +110,8 @@ CONTINUAR = pygame.sprite.GroupSingle()
 CONTINUAR.add(Button("CONTINUAR"))
 
 ButtonGroupFinal = pygame.sprite.Group()
-ButtonGroupFinal.add(Button("SIM"))
-ButtonGroupFinal.add(Button("NÃO"))
+ButtonGroupFinal.add(Button("SIM2"))
+ButtonGroupFinal.add(Button("NÃO2"))
 
 # --------------- DEFININDO FUNÇÕES ---------------
 # função para o texto: (https://www.pygame.org/wiki/TextWrap)
@@ -228,7 +241,6 @@ while kikinho.perguntasPossíveis != set(): # Enquanto ainda houver perguntas po
     screen.blit(fundo_surf, (0,0))
     screen.blit(kikinho_surf, (25,25))
     screen.blit(speechBubble_surf, (301, 25))
-    screen.blit(caixa_surf, (435, 249))
     
     drawText(perguntaAtual)
 
@@ -272,7 +284,6 @@ while True:
     screen.blit(fundo_surf, (0,0))
     screen.blit(kikinho_surf, (25,25))
     screen.blit(speechBubble_surf, (301, 25))
-    screen.blit(caixa_surf, (435, 249))
 
     drawText(Fala)
 
