@@ -90,6 +90,7 @@ perguntasEspecíficas = { # Um dicionário com as perguntas específicas e seu �
     "O seu elemento é utilizado na limpeza de piscinas?":{17},
     "O seu elemento é famoso por estar presente na banana?":{19},
     "O seu elemento é famoso por ser essencial na manutenção dos ossos?":{20},
+    "Existe uma música de David Guetta e Sia com o nome do seu elemento?":{22},
     "O seu elemento auxilia no trasporte do Oxigênio pelo corpos animais?":{26},
     "O seu elemento é utilizado para fazer fios elétricos?":{29},
     "O nome do seu elemento se parece com o nome do planeta do Super-Homem?":{36},

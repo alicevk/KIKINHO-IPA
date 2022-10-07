@@ -70,7 +70,7 @@ class Button(pygame.sprite.Sprite):
         clique = pygame.mouse.get_pressed()
         pos = pygame.mouse.get_pos()
         if clique[0] and self.rect.collidepoint(pos[0], pos[1]) and not self.apertando:
-            time.sleep(0.1)
+            time.sleep(0.2)
             self.apertando = True
             global answer
             answer = self.valor
@@ -206,7 +206,7 @@ while kikinho.perguntasPossíveis != set(): # Enquanto ainda houver perguntas po
             if kikinho.elementosPossíveis.intersection(kikinho.perguntas[chave]) == set() and chave in kikinho.perguntasPossíveis: # Se não houver nenhuma pergunta em comum com elementos possíveis:
                 kikinho.perguntasPossíveis.remove(chave) # Remove pergunta de perguntas possíveis
         
-        if kikinho.perguntasPossíveis == set(): # Se não houver mais perguntas possíveis:
+        if kikinho.perguntasPossíveis == set() or len(kikinho.elementosPossíveis) <= 3: # Se não houver mais perguntas possíveis ou houver apenas 3 ou menos elementos possíveis:
             for chave, valor in kikinho.perguntasEspecíficas.items(): # Para cada par chave-valor no dicionário de perguntas específicas:
                 if list(valor)[0] in kikinho.elementosPossíveis: # Se o elemento correspondente (valor) estiver entre os elementos possíveis:
                     kikinho.perguntas[chave] = valor # Adiciona o par chave-valor (pergunta e elemento) ao dicionário de perguntas normais
@@ -217,7 +217,7 @@ while kikinho.perguntasPossíveis != set(): # Enquanto ainda houver perguntas po
         if listaTemporária != [] and len(kikinho.elementosPossíveis) >= 2: # Se houver alguma pergunta na lista temporária e ainda houver algum elemento possível:
             perguntaAtual = random.choice(listaTemporária) # Define uma pergunta aleatória das restantes como pergunta atual
     
-        if len(kikinho.elementosPossíveis) <= 2: # Se houver apenas 2 ou menos elementos:
+        elif len(kikinho.elementosPossíveis) <= 2: # Se houver apenas 2 ou menos elementos:
             break # Sai do loop while, para adivinhar seu elemento
 
         # resetando variáveis temporárias:
