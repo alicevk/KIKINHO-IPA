@@ -73,6 +73,12 @@ perguntas = { # Um dicionário com as perguntas gerais e os seus elementos corre
     "O seu elemento é um metalóide?":{5,14,32,33,51,52,85},
     "O símbolo do seu elemento possui apenas uma letra?":{1,5,6,7,8,9,15,16,19,23,39,53,74,92},
     "O seu elemento possui massa maior que 100 u?":{44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118},
+    # formação dos elementos --> até o ferro
+    # está presente no dna
+    # estão em proteínas
+    # macro e micronutrientes para plantas
+    # na televisão (fluorescência, terras raras)
+    
 }
 
 perguntasEspecíficas = { # Um dicionário com as perguntas específicas e seu único elemento correspondente
